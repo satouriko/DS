@@ -3,7 +3,7 @@
 using namespace std;
 
 template <typename T>
-vector<T>::vector() : _size(DEFAULT_SIZE), _capacity(DEFAULT_SIZE)
+vector<T>::vector() : _size(0), _capacity(DEFAULT_SIZE)
 {
 	_elem = new T(DEFAULT_SIZE);
 }
@@ -73,7 +73,7 @@ template <typename T>
 size_t vector<T>::insert(size_t r, T e)
 {
 	full();
-	T *p = _elem + _size + 1;
+	T *p = _elem + _size;
 	for(; p != _elem + r;--p)
 	{
 		*p = *(p-1);
@@ -84,8 +84,41 @@ size_t vector<T>::insert(size_t r, T e)
 }
 
 template <typename T>
+size_t vector<T>::destroy(size_t lo, size_t hi)
+{
+	size_t length = hi - lo;
+	T *p = _elem + lo;
+	for(; p != _elem + _size - length; ++p)
+	{
+		*p = *(p + length);
+	}
+	_size -= length;
+	return length;
+}
+
+template <typename T>
+T vector<T>::destroy(size_t r)
+{
+	T bak = get(r);
+	destroy(r,r+1);
+	return bak;
+}
+
+template <typename T>
 vector<T>::~vector()
 {
 	delete _elem;
 }
 
+template <typename T>
+ostream &operator<<(ostream &os, const vector<T> &v) {
+	os << '(';
+	for (size_t iter = 0; iter != v.size(); ++iter)
+	{
+		os << v.get(iter);
+		if(iter != v.size() - 1)
+			os << ", ";
+	}
+	os << ")";
+	return os;
+}

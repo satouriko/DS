@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <iostream>
 
 template <typename T>
 class vector {
@@ -22,15 +23,22 @@ class vector {
 	size_t push(T e);
 	const T& put(size_t r, T e);
 	size_t insert(size_t r, T e);
+	size_t destroy(size_t lo, size_t hi);
+	T destroy(size_t r);
 	unsigned disordered();
 	void sort();
-	size_t find(T e);
+	int find(T e);
+	int find(size_t lo, size_t hi, T e);
 	size_t deduplicate();
 	size_t uniquify();
 
 	~vector();
 };
 
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const vector<T> &v);
+	
 #include "Vector.cpp"
+#include "Algorithm.cpp"
 
 #endif
