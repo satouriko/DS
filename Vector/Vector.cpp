@@ -107,7 +107,7 @@ T vector<T>::destroy(size_t r)
 template <typename T>
 vector<T>::~vector()
 {
-	delete _elem;
+	//delete _elem;
 }
 
 template <typename T>

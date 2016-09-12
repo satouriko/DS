@@ -34,5 +34,16 @@ int main() {
 	t4.deduplicate();
 	cout << t4 << endl;
 
+	cout << "-----------华丽的分割线-----------" << endl;
+
+	int array10[] = { 5, 6, 6, 6, 4, 3, 9, 1, 1, 2 };
+	vector<int> t10(array10, array10 + 10);
+	cout << t10 << endl;
+	t10.bubbleSortB1();
+	cout << t10 << endl;
+	cout << t10.search(10) << endl;
+	t10.uniquify();
+	cout << t10 << endl;
+
 	return 0;
 }
