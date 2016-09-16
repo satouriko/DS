@@ -37,6 +37,7 @@ long long* power (int n) {
 }
 
 int main() {
-    for(int i = 1; i <= 45; ++i)
+    for(int i = 1; i <= 92; ++i)
         cout << i << '\t' << fib(i) << endl;
+    return 0;
 }
