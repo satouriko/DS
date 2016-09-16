@@ -7,8 +7,8 @@ int main() {
 	vector<int> t1;
 	int array[] = { 1, 2, 3, 4 };
 	vector<int> t2(array, array + 4);
-	//vector<int> t3(t2);
-	string t3 = "";
+	vector<int> t3(t2);
+	//string t3 = "";
 
 	cout << t1 << '\n' << t2 << '\n' << t3 << endl;
 	cout << "size:" << t3.size() << '\n' << endl;
@@ -20,7 +20,7 @@ int main() {
 	t2.insert(1, 2222);
 	t2.put(2, 155);
 	cout << t1 << '\n' << t2 << '\n' << t3 << endl;
-	cout << t2.get(5) << endl;
+	cout << t2[5] << endl;
 
 	int a = t2.find(2222);
 	int b = t2.find(2143);

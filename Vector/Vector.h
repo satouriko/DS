@@ -17,6 +17,11 @@ class vector {
 
 	vector();
 	vector(T* begin, T* end);
+    vector(const vector<T> &oldv);
+	vector<T>& operator=(const vector<T> &oldv);
+
+	T& operator[] (const size_t i);
+	const T& operator[] (const size_t i) const;
 
 	const size_t size() const;
 	const T& get(size_t r) const;

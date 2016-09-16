@@ -9,11 +9,41 @@ vector<T>::vector() : _size(0), _capacity(DEFAULT_SIZE)
 }
 
 template <typename T>
+vector<T>::vector(const vector<T> &oldv) : _size(oldv._size), _capacity(oldv._capacity) {
+    _elem = new T(_capacity);
+    for (int *p = _elem, *op = oldv._elem; p != _elem + _size; ++p, ++op)
+        *p = *op;
+}
+
+template <typename T>
+vector<T>& vector<T>::operator=(const vector<T> &oldv) {
+    _capacity = oldv._capacity;
+    _size = oldv._size;
+    T* oldelem = _elem;
+    _elem = new T(_capacity);
+	for (int *p = _elem, *op = oldv._elem; p != _elem + _size; ++p, ++op)
+		*p = *op;
+    delete oldelem;
+}
+
+template <typename T>
 vector<T>::vector(T* begin, T* end) : _size(end - begin), _capacity(2 * (end - begin))
 {
 	_elem = new T(2 * (end - begin));
 	for(T *p = _elem, *op = begin; op != end; ++op, ++p)
 		*p = *op;
+}
+
+template <typename T>
+T& vector<T>::operator[] (const size_t i)
+{
+	return _elem[i];
+}
+
+template <typename T>
+const T& vector<T>::operator[] (const size_t i) const
+{
+	return _elem[i];
 }
 
 template <typename T>
