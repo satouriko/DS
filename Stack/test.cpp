@@ -1,4 +1,5 @@
 #include "stack.h"
+#include "applications.h"
 
 using namespace std;
 
@@ -15,5 +16,21 @@ int main()
         stk.pop();
         cout << stk << endl;
     }
+    cout << isRightBrackets("(define (factorial_rec n)\
+        (if (= n 1)\
+            1\
+            (* n (factorial_rec (- n 1)))))\
+        (define (factorial_itr n)\
+        (define (fact-iter product counter max-count)\
+        (if (> counter max-count)\
+            product\
+            (fact-iter (* product counter)\
+                        (+ counter 1)\
+                        max-count)))\
+        (fact-iter 1 1 n))\
+        \
+        (factorial_rec 2645)\
+        (factorial_itr 2645)") << endl;
+    cout << isRightPermutation("1234","4312") << endl;
     return 0;
 }
