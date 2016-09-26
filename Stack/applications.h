@@ -10,4 +10,6 @@ T solve_infix(string expression);
 template <typename T>
 T solve_prefix(string expression);
 
+#include "applications.cpp"
+
 #endif
