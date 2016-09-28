@@ -44,7 +44,7 @@ bool isRightPermutation(string ori, string sam)
 
 int otorpri(char a)
 {
-    if(a == EOF)
+    if(a == EOF || a == '(' || a == ')')
         return 0;
     else if(a == '+' || a == '-')
         return 1;
@@ -52,13 +52,26 @@ int otorpri(char a)
         return 2;
     else if(a == '^')
         return 3;
-    else if(a == '(' || a == ')')
+    else if(a == '.')
         return 4;
     else {
         cerr << "Undefined operator: " << a << endl;
         return -1;
     }
-        
+}
+
+int otorandnum(char a)
+{
+    if(a == EOF || a == '(' || a == ')' || a == '.')
+        return 0;
+    else if(a == '!')
+        return 1;
+    else if(a == '+' || a == '-' || a == '*' || a == '/' || a == '^')
+        return 2;
+    else {
+        cerr << "Undefined operator: " << a << endl;
+        return -1;
+    }
 }
 
 template <typename T>
@@ -86,41 +99,58 @@ T solve_infix(string expression)
 {
     stack<char> otor;
     stack<T> oand;
-    bool flag = false;
-    if(!isdigit(expression[0]))
-        oand.push(0);
+    bool isReadingDits = false;
+    bool isBeginning = true;
+    int decidits = 0;
     expression.push_back(EOF);
     for(string::iterator iter = expression.begin(); iter != expression.end(); ++iter) {
         if(isdigit(*iter)) {
+            isBeginning = false;
             int a = *iter - '0';
-            if(flag) {
+            if(otor.top() == '.') {
+                ++decidits;
+                oand.push(oand.pop() + a / pow(10,decidits));
+            }
+            else if(isReadingDits) {
                 oand.push(oand.pop() * 10 + a);
             }
             else {
                 oand.push(a);
-                flag = true;
+                isReadingDits = true;
             }
         }
         else if(otorpri(*iter) >= 0) {
-            flag = false;
-            while(otor.size() != 0 && otorpri(*iter) <= otorpri(otor.top())) {
-                char o = otor.pop();
-                T r = oand.pop();
-                T l = oand.pop();
-                oand.push(solve(o,l,r)); 
+            isReadingDits = false;
+            if(isBeginning) {
+                oand.push(0);
+                isBeginning = false;
             }
-            otor.push(*iter);
+            if(*iter == '(')
+                isBeginning = true;
+            else while(otor.size() != 0 && otorpri(*iter) <= otorpri(otor.top())) {
+                char o = otor.pop();
+                if(otorandnum(o) == 2) {
+                    T r = oand.pop();
+                    T l = oand.pop();
+                    oand.push(solve(o,l,r)); 
+                }
+            }
+            if(otor.top() == '.')
+                otor.pop();
+            if(*iter == '.') {
+                decidits = 0;
+            }
+            if(*iter != ')' && *iter != EOF)
+                otor.push(*iter);
         }
-        //cout << "otor:\t" << otor << endl;
-        //cout << "oand:\t" << oand << endl;
     }
     return oand.top();
 }
 
-// 逆波兰表达式 
+// 前缀表达式 
 template <typename T>
 T solve_prefix(string expression)
 {
-
+    
 }
 

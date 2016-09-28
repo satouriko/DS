@@ -32,6 +32,6 @@ int main()
         (factorial_rec 2645)\
         (factorial_itr 2645)") << endl;
     cout << isRightPermutation("1234","4312") << endl;
-    cout << solve_infix<int>("3+2*4-1") << endl;
+    cout << solve_infix<double>("3+2*(4.1-1)-10") << endl;
     return 0;
 }
