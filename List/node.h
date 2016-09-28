@@ -20,6 +20,7 @@ public:
     node<T> *insertAsSucc(const T &e);
 
     friend class list<T>;
+    friend class queue<T>;
     friend std::ostream &operator<< <T>(std::ostream &os, const list<T> &l);
 };
 

@@ -13,6 +13,9 @@ class node;
 template <typename T>
 class list;
 
+template <typename T>
+class queue;
+
 #include "cout.cpp"
 #include "node.h"
 
@@ -43,6 +46,7 @@ public:
     void selectionSort();
     void insertSort();
 
+    friend class queue<T>;
     friend std::ostream &operator<< <T>(std::ostream &os, const list<T> &l);
 
 };
